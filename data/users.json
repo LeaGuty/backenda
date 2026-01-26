@@ -1,0 +1,14 @@
+[
+  {
+    "id": "0635b9d2-96d6-487a-a52f-ed13e9f8f303",
+    "email": "usuario@ejemplo.com",
+    "password": "$2b$10$CIPmOhjtLotnttzq.KD68epmvsHFYkaMz7S91pAbETN09R6rwOowe",
+    "createdAt": "2026-01-26T20:45:40.234Z"
+  },
+  {
+    "id": "eb50aa8a-b554-4b9b-82d9-8311fb86a654",
+    "email": "lean.gutierrez@duocuc.cl",
+    "password": "$2b$10$m5b2axLqj4Oyp2gsDT.sHuO2bQ5iTP28i5oaZFqk2tgEp.r8B98iq",
+    "createdAt": "2026-01-26T20:49:41.024Z"
+  }
+]

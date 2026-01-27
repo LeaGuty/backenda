@@ -10,5 +10,30 @@
     "email": "lean.gutierrez@duocuc.cl",
     "password": "$2b$10$m5b2axLqj4Oyp2gsDT.sHuO2bQ5iTP28i5oaZFqk2tgEp.r8B98iq",
     "createdAt": "2026-01-26T20:49:41.024Z"
+  },
+  {
+    "id": "743ad704-2e3f-459d-b844-ac69b50fca6f",
+    "email": "lgutierrez@duoc.cl",
+    "password": "$2b$10$mPB23GAGPfbb7Af3gihm0OKun/RF5a4geenw5bO3Ku6H6VRYvKhXG",
+    "createdAt": "2026-01-26T21:41:44.445Z"
+  },
+  {
+    "id": "d1f984e5-8908-4322-9af1-160d310841d6",
+    "email": "LEANDER.GUTY@GMAIL.COM",
+    "password": "$2b$10$3S/Di4k0MP2WX.c8O0.GkOsbWhKgTAjOBXyHMQU8G19n4qyCdoOqe",
+    "createdAt": "2026-01-26T21:49:13.558Z"
+  },
+  {
+    "id": "38318247-1ea2-405a-ae68-bd27604caf52",
+    "email": "jobal@duoc.cl",
+    "password": "$2b$10$M2BHp6S6S/gEEgsfidczL.2a7qNpedRaIjjDbuCGpwlUuRL.V.7tO",
+    "createdAt": "2026-01-26T21:51:08.990Z"
+  },
+  {
+    "id": "ba256695-ec14-4f68-8fba-640c3badda78",
+    "email": "LeaGuty@github.com",
+    "password": null,
+    "createdAt": "2026-01-27T00:15:27.870Z",
+    "githubId": 168963167
   }
 ]

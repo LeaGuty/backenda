@@ -75,15 +75,21 @@ async function getMe(req, res) {
 
 async function githubCallback(req, res) {
     try {
-        const code = req.query.code;
+        const code = req.body.code || req.query.code;
+        console.log('[GitHub OAuth] Code recibido:', code ? `${code.substring(0, 10)}...` : 'NINGUNO');
+        console.log('[GitHub OAuth] req.body:', JSON.stringify(req.body));
+        console.log('[GitHub OAuth] req.query:', JSON.stringify(req.query));
+
         if (!code) {
             return sendErrorResponse(res, 400, 'Código de autorización no proporcionado');
         }
-        const { token, user } = await authService.loginOrRegisterWithGitHub(code);
-        sendSuccessResponse(res, 'Inicio de sesión con GitHub exitoso', { token, user });
+        const result = await authService.loginOrRegisterWithGitHub(code);
+        console.log('[GitHub OAuth] Resultado exitoso:', { userId: result.userId, email: result.email });
+        sendSuccessResponse(res, 'Inicio de sesión con GitHub exitoso', { token: result.token, userId: result.userId, email: result.email });
     } catch (error) {
-        console.log("GitHub OAuth Error:", error);
-        sendErrorResponse(res, 500, 'Error interno del servidor');
+        console.error("[GitHub OAuth] ERROR COMPLETO:", error.message);
+        console.error("[GitHub OAuth] Stack:", error.stack);
+        sendErrorResponse(res, 500, error.message || 'Error interno del servidor');
     }
 }
 

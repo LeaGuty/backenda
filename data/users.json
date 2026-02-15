@@ -1,58 +1,17 @@
 [
   {
-    "id": "0635b9d2-96d6-487a-a52f-ed13e9f8f303",
-    "email": "usuario@ejemplo.com",
-    "password": "$2b$10$CIPmOhjtLotnttzq.KD68epmvsHFYkaMz7S91pAbETN09R6rwOowe",
-    "createdAt": "2026-01-26T20:45:40.234Z"
-  },
-  {
-    "id": "eb50aa8a-b554-4b9b-82d9-8311fb86a654",
-    "email": "lean.gutierrez@duocuc.cl",
-    "password": "$2b$10$m5b2axLqj4Oyp2gsDT.sHuO2bQ5iTP28i5oaZFqk2tgEp.r8B98iq",
-    "createdAt": "2026-01-26T20:49:41.024Z"
-  },
-  {
-    "id": "743ad704-2e3f-459d-b844-ac69b50fca6f",
-    "email": "lgutierrez@duoc.cl",
-    "password": "$2b$10$mPB23GAGPfbb7Af3gihm0OKun/RF5a4geenw5bO3Ku6H6VRYvKhXG",
-    "createdAt": "2026-01-26T21:41:44.445Z"
-  },
-  {
-    "id": "d1f984e5-8908-4322-9af1-160d310841d6",
-    "email": "LEANDER.GUTY@GMAIL.COM",
-    "password": "$2b$10$3S/Di4k0MP2WX.c8O0.GkOsbWhKgTAjOBXyHMQU8G19n4qyCdoOqe",
-    "createdAt": "2026-01-26T21:49:13.558Z"
-  },
-  {
-    "id": "38318247-1ea2-405a-ae68-bd27604caf52",
-    "email": "jobal@duoc.cl",
-    "password": "$2b$10$M2BHp6S6S/gEEgsfidczL.2a7qNpedRaIjjDbuCGpwlUuRL.V.7tO",
-    "createdAt": "2026-01-26T21:51:08.990Z"
-  },
-  {
-    "id": "ba256695-ec14-4f68-8fba-640c3badda78",
-    "email": "LeaGuty@github.com",
-    "password": null,
-    "createdAt": "2026-01-27T00:15:27.870Z",
-    "githubId": 168963167
-  },
-  {
-    "id": "ddb3a646-e54b-4f84-86ba-75df6a348747",
-    "email": "leandrogut@github.com",
-    "password": null,
-    "createdAt": "2026-01-27T00:38:53.199Z",
-    "githubId": 167159256
-  },
-  {
-    "id": "761e6d5a-5a58-4106-9928-0e9e5479df70",
+    "id": "6b45399d-35bd-43b2-80bf-2a462ca51b35",
     "email": "leander.guty@gmail.com",
-    "password": "$2b$10$uS1FuMepV7fAIO0CFM2ZR.M7RCrUKrIip5tsEL2Bl86Rv34WncZae",
-    "createdAt": "2026-02-15T13:47:01.314Z"
+    "password": "$2b$10$.qU1dQ.60ReLC9PUdGJVveAGYzcxJnlQW2TTrkTu/qc3uzBhaYRXK",
+    "createdAt": "2026-02-15T22:27:12.673Z"
   },
   {
-    "id": "c69c4578-6d37-4fa1-a4fd-f3e98222e3a0",
-    "email": "gaby@gmail.com",
-    "password": "$2b$10$zdeyxCi6vhhunZiWTb/0m.WoyasKbHA/9Th/TRcuKc75KdFxJgj7y",
-    "createdAt": "2026-02-15T21:05:17.694Z"
+    "id": "bcb3a336-e26c-4af8-ac82-51b27fad6d17",
+    "email": "lean.gutierrez@duocuc.cl",
+    "password": null,
+    "createdAt": "2026-02-15T22:41:09.683Z",
+    "githubId": 168963167,
+    "name": "LeaGuty",
+    "avatar": "https://avatars.githubusercontent.com/u/168963167?v=4"
   }
 ]

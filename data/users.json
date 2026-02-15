@@ -35,5 +35,24 @@
     "password": null,
     "createdAt": "2026-01-27T00:15:27.870Z",
     "githubId": 168963167
+  },
+  {
+    "id": "ddb3a646-e54b-4f84-86ba-75df6a348747",
+    "email": "leandrogut@github.com",
+    "password": null,
+    "createdAt": "2026-01-27T00:38:53.199Z",
+    "githubId": 167159256
+  },
+  {
+    "id": "761e6d5a-5a58-4106-9928-0e9e5479df70",
+    "email": "leander.guty@gmail.com",
+    "password": "$2b$10$uS1FuMepV7fAIO0CFM2ZR.M7RCrUKrIip5tsEL2Bl86Rv34WncZae",
+    "createdAt": "2026-02-15T13:47:01.314Z"
+  },
+  {
+    "id": "c69c4578-6d37-4fa1-a4fd-f3e98222e3a0",
+    "email": "gaby@gmail.com",
+    "password": "$2b$10$zdeyxCi6vhhunZiWTb/0m.WoyasKbHA/9Th/TRcuKc75KdFxJgj7y",
+    "createdAt": "2026-02-15T21:05:17.694Z"
   }
 ]

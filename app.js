@@ -4,6 +4,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const authRoutes = require("./routes/auth.routes");
+const requestRoutes = require('./routes/request.routes');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -18,6 +19,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/auth", require("./routes/auth.routes"));
+app.use('/api/requests', requestRoutes);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);

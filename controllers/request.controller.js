@@ -1,47 +1,72 @@
-const { v4: uuidv4 } = require('uuid'); 
 const { readJSON, writeJSON } = require('../utils/jsonStorage');
 
 const FILE_NAME = 'requests.json';
 
-// Simula una espera de red (Latencia)
-const simulateDelay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
-const getRequests = async (req, res) => {
+// Obtener todas las solicitudes (con filtro de seguridad por rol)
+exports.getAllRequests = async (req, res) => {
   try {
-    // 1. Simulamos la espera de 3 segundos requerida en la pauta
-    await simulateDelay(3000);
-
     const requests = await readJSON(FILE_NAME);
-    
-    // 2. Filtramos: Un usuario solo debe ver SUS solicitudes
-    
-    const userRequests = requests.filter(r => r.userId === req.user.userId);
+    const user = req.user; 
 
-    res.json(userRequests);
+    if (!user) {
+      return res.status(401).json({ message: 'No autorizado' });
+    }
+
+    if (user.role === 'agent') {
+      return res.json(requests);
+    } else {
+      const myRequests = requests.filter(r => r.linkedUserId === user.id);
+      return res.json(myRequests);
+    }
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error al obtener las solicitudes." });
+    res.status(500).json({ message: 'Error al obtener las solicitudes' });
   }
 };
 
-const createRequest = async (req, res) => {
+// Crear una nueva solicitud (Solo Agentes)
+exports.createRequest = async (req, res) => {
   try {
-    const { destination, date, status } = req.body;
-
-    // Validación básica
-    if (!destination || !date) {
-      return res.status(400).json({ message: "Destino y fecha son obligatorios." });
-    }
+    const { 
+      dni, 
+      passengerName, 
+      origin, 
+      destination, 
+      tripType, 
+      linkedUserId, 
+      linkedUserName, 
+      departureDate, 
+      returnDate,
+      status 
+    } = req.body;
 
     const requests = await readJSON(FILE_NAME);
 
+    // ID correlativo: Busca el máximo actual y suma 1
+    const maxId = requests.reduce((max, req) => {
+      const currentId = parseInt(req.id);
+      // Si hay IDs viejos tipo texto, los ignora para no romper el cálculo
+      return (!isNaN(currentId) && currentId > max) ? currentId : max;
+    }, 1117); 
+    
+    const newId = (maxId + 1).toString();
+
+    // Fecha registro
+    const now = new Date();
+    const registrationDate = now.toLocaleDateString('es-CL') + ' ' + now.toLocaleTimeString('es-CL');
+
     const newRequest = {
-      id: uuidv4(),
-      userId: req.user.userId, // Vinculamos la solicitud al usuario logueado
+      id: newId,
+      dni,
+      passengerName,
+      origin,
       destination,
-      date,
-      status: status || 'pending', // Estado por defecto
-      createdAt: new Date().toISOString()
+      tripType,
+      linkedUserId,
+      linkedUserName,
+      departureDate,
+      returnDate,
+      registrationDate,
+      status: status || 'pendiente'
     };
 
     requests.push(newRequest);
@@ -50,68 +75,55 @@ const createRequest = async (req, res) => {
     res.status(201).json(newRequest);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Error al crear la solicitud." });
+    res.status(500).json({ message: 'Error al crear la solicitud' });
   }
 };
 
-const deleteRequest = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const requests = await readJSON(FILE_NAME);
-        
-        // Filtramos para eliminar la que coincida con el ID y pertenezca al usuario
-        const updatedRequests = requests.filter(
-            r => r.id !== id || r.userId !== req.user.userId
-        );
+// Eliminar solicitud
+exports.deleteRequest = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const requests = await readJSON(FILE_NAME);
+    
+    const filteredRequests = requests.filter(r => r.id !== id);
 
-        if (requests.length === updatedRequests.length) {
-            return res.status(404).json({ message: "Solicitud no encontrada o no autorizada." });
-        }
-
-        await writeJSON(FILE_NAME, updatedRequests);
-        res.json({ message: "Solicitud eliminada correctamente." });
-
-    } catch (error) {
-        res.status(500).json({ message: "Error al eliminar." });
+    if (requests.length === filteredRequests.length) {
+      return res.status(404).json({ message: 'Solicitud no encontrada' });
     }
-}
 
-const updateRequest = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const { destination, date, status } = req.body;
-
-        const requests = await readJSON(FILE_NAME);
-        
-        // Buscamos el índice de la solicitud
-        const index = requests.findIndex(r => r.id === id);
-
-        // Validamos si existe
-        if (index === -1) {
-            return res.status(404).json({ message: "Solicitud no encontrada." });
-        }
-
-        // Validamos seguridad: ¿Pertenece al usuario logueado?
-        if (requests[index].userId !== req.user.userId) {
-            return res.status(403).json({ message: "No tienes permiso para editar esta solicitud." });
-        }
-
-        // Actualizamos los datos (mantenemos los anteriores si no vienen en el body)
-        requests[index] = {
-            ...requests[index], // Copia todo lo que había
-            destination: destination || requests[index].destination,
-            date: date || requests[index].date,
-            status: status || requests[index].status
-        };
-
-        await writeJSON(FILE_NAME, requests);
-
-        res.json(requests[index]);
-
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Error al actualizar la solicitud." });
-    }
+    await writeJSON(FILE_NAME, filteredRequests);
+    res.json({ message: 'Solicitud eliminada correctamente' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error al eliminar la solicitud' });
+  }
 };
 
-module.exports = { getRequests, createRequest, deleteRequest, updateRequest };
+exports.updateRequest = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updateData = req.body;
+    const requests = await readJSON(FILE_NAME);
+
+    const index = requests.findIndex(r => r.id === id);
+
+    if (index === -1) {
+      return res.status(404).json({ message: 'Solicitud no encontrada' });
+    }
+
+    // Mantener campos que no deben cambiar y actualizar los permitidos
+    const updatedRequest = {
+      ...requests[index],
+      ...updateData,
+      id: requests[index].id, // Aseguramos que el ID no cambie
+      registrationDate: requests[index].registrationDate // La fecha original se mantiene
+    };
+
+    requests[index] = updatedRequest;
+    await writeJSON(FILE_NAME, requests);
+
+    res.json(updatedRequest);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al actualizar la solicitud' });
+  }
+};

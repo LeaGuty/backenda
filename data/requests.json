@@ -1,1 +1,44 @@
-[]
+[
+  {
+    "id": "1118",
+    "dni": "15160919-8",
+    "passengerName": "Esteban Castro Paredes",
+    "origin": "Santiago, Chile",
+    "destination": "Madrid, España",
+    "tripType": "turismo",
+    "linkedUserId": "1070eeec-21d9-45fa-a9fe-faa6c1e2e6a4",
+    "linkedUserName": "Josselin Obal",
+    "departureDate": "2025-09-15T10:00",
+    "returnDate": "2025-12-21T17:00",
+    "registrationDate": "16-02-2026 1:42:37 a. m.",
+    "status": "finalizado"
+  },
+  {
+    "id": "1120",
+    "dni": "15160919-8",
+    "passengerName": "Josselin Obal",
+    "origin": "Santiago, Chile",
+    "destination": "Lima, Perú",
+    "tripType": "turismo",
+    "linkedUserId": "1070eeec-21d9-45fa-a9fe-faa6c1e2e6a4",
+    "linkedUserName": "Josselin Obal",
+    "departureDate": "2026-02-16T04:30",
+    "returnDate": "2026-03-26T05:00",
+    "registrationDate": "16-02-2026 3:26:20 a. m.",
+    "status": "pendiente"
+  },
+  {
+    "id": "1121",
+    "dni": "27137478-K",
+    "passengerName": "Pedro Obal",
+    "origin": "santiago",
+    "destination": "conce",
+    "tripType": "turismo",
+    "linkedUserId": "d7bfe912-fe29-4494-8c23-f07b68b68357",
+    "linkedUserName": "Pedro Obal",
+    "departureDate": "2026-02-16T03:41",
+    "returnDate": "2026-02-25T03:41",
+    "registrationDate": "16-02-2026 3:42:03 a. m.",
+    "status": "pendiente"
+  }
+]

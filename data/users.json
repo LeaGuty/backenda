@@ -1,17 +1,38 @@
 [
   {
-    "id": "6b45399d-35bd-43b2-80bf-2a462ca51b35",
-    "email": "leander.guty@gmail.com",
-    "password": "$2b$10$.qU1dQ.60ReLC9PUdGJVveAGYzcxJnlQW2TTrkTu/qc3uzBhaYRXK",
-    "createdAt": "2026-02-15T22:27:12.673Z"
+    "id": "df2142d1-e4a3-4295-8f1a-0841f70bbdf8",
+    "name": "Agenteasatus7",
+    "email": "agentass@gmasail.com",
+    "password": "$2b$10$NrrWnmtFD14gXnGpZ7MpdetbeJDHu4wWwarae46RBQ3C4nz1EuGfS",
+    "role": "agent",
+    "dni": "15544211-5",
+    "createdAt": "2026-02-16T00:36:31.975Z"
   },
   {
-    "id": "bcb3a336-e26c-4af8-ac82-51b27fad6d17",
-    "email": "lean.gutierrez@duocuc.cl",
-    "password": null,
-    "createdAt": "2026-02-15T22:41:09.683Z",
-    "githubId": 168963167,
-    "name": "LeaGuty",
-    "avatar": "https://avatars.githubusercontent.com/u/168963167?v=4"
+    "id": "44aba9ba-5d2a-4fb3-8bd8-8df44c8c3069",
+    "name": "Leandro Gutiérrez",
+    "email": "leander.guty@gmail.com",
+    "password": "$2b$10$r2EooA1V3TW0Hw9VU2gVSu43zobOo.HxkPmgn4vsQIrAvuub.8p26",
+    "role": "agent",
+    "dni": "15544211-5",
+    "createdAt": "2026-02-16T04:33:56.434Z"
+  },
+  {
+    "id": "1070eeec-21d9-45fa-a9fe-faa6c1e2e6a4",
+    "name": "Josselin Obal",
+    "email": "josselin@gmail.com",
+    "password": "$2b$10$u3uNLVW2AzM/qvgPoLtSluiZSyyzt.bCRDxSU8vNARCftGv2MW4kC",
+    "role": "client",
+    "dni": "15160919-8",
+    "createdAt": "2026-02-16T04:38:30.905Z"
+  },
+  {
+    "id": "d7bfe912-fe29-4494-8c23-f07b68b68357",
+    "name": "Pedro Obal",
+    "email": "pedro@duoc.cl",
+    "password": "$2b$10$2npcBzM/Pnt2cdL7.hjqPuYSfPE1vWPKuawTnJf9NoFLenfvFUZZu",
+    "role": "client",
+    "dni": "27137478-K",
+    "createdAt": "2026-02-16T06:41:27.043Z"
   }
 ]

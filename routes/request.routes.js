@@ -2,19 +2,20 @@ const express = require('express');
 const router = express.Router();
 const requestController = require('../controllers/request.controller');
 const authMiddleware = require('../middleware/auth');
+const { validateRequestBody } = require('../middleware/validation');
 
-// Aplicamos el middleware de autenticación a TODAS las rutas de este archivo.
-// Esto asegura que req.user exista en el controlador.
-const { verifyToken } = require('../middleware/auth'); 
-// -------------------
+const verifyToken = authMiddleware.verifyToken || authMiddleware;
 
-// Ahora usamos verifyToken directamente, que sí es la función middleware
-router.use(verifyToken);
+// Middleware para ejecutar validación de solicitud
+const runRequestValidation = (req, res, next) => {
+    const { isValid, errors } = validateRequestBody(req.body);
+    if (!isValid) return res.status(400).json({ message: 'Error en los datos de la solicitud', errors });
+    next();
+};
 
-// Definición de endpoints
-router.get('/', requestController.getRequests);       // GET /api/requests
-router.post('/', requestController.createRequest);    // POST /api/requests
-router.delete('/:id', requestController.deleteRequest); // DELETE /api/requests/:id
-router.put('/:id', requestController.updateRequest); // PUT /api/requests/:id
+router.get('/', verifyToken, requestController.getAllRequests);
+router.post('/', verifyToken, runRequestValidation, requestController.createRequest); // <-- Agregado aquí
+router.delete('/:id', verifyToken, requestController.deleteRequest);
+router.put('/:id', verifyToken, runRequestValidation, requestController.updateRequest);
 
 module.exports = router;

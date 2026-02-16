@@ -1,15 +1,20 @@
+/**
+ * @file auth.controller.js - Controladores de autenticación.
+ * Maneja registro, login y consulta de clientes.
+ */
 const authService = require('../services/auth.service');
 
+/** @param {import('express').Request} req @param {import('express').Response} res */
 async function register(req, res) {
   try {
-    const userData = req.body;
-    const user = await authService.register(userData);
+    const user = await authService.register(req.body);
     res.status(201).json({ message: 'Usuario registrado exitosamente', user });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 }
 
+/** @param {import('express').Request} req @param {import('express').Response} res */
 async function login(req, res) {
   try {
     const { email, password } = req.body;
@@ -20,7 +25,7 @@ async function login(req, res) {
   }
 }
 
-// Nueva función para obtener clientes
+/** @param {import('express').Request} req @param {import('express').Response} res */
 async function getClients(req, res) {
   try {
     const clients = await authService.getAllClients();
@@ -31,7 +36,6 @@ async function getClients(req, res) {
   }
 }
 
-// Exportamos todo junto al final para evitar errores
 module.exports = {
   register,
   login,

@@ -1,6 +1,15 @@
+/**
+ * @file auth.js - Middleware de autenticación JWT.
+ * Verifica el token Bearer del header Authorization y
+ * adjunta el payload decodificado en req.user (id, role, name).
+ */
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = process.env.JWT_SECRET || 'default_secret_key';
 
+/**
+ * Middleware que valida el JWT del header Authorization.
+ * Si es válido, asigna el payload a req.user y continúa.
+ */
 function verifyToken(req, res, next) {
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -25,7 +34,6 @@ function verifyToken(req, res, next) {
         });
     }
 }
-module.exports = {
-    verifyToken
-};
+
+module.exports = { verifyToken };
 

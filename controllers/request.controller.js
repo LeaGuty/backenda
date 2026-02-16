@@ -1,12 +1,16 @@
+/**
+ * @file request.controller.js - CRUD de solicitudes de viaje.
+ * Los agentes ven todas las solicitudes; los clientes solo las propias.
+ */
 const { readJSON, writeJSON } = require('../utils/jsonStorage');
 
 const FILE_NAME = 'requests.json';
 
-// Obtener todas las solicitudes (con filtro de seguridad por rol)
+/** GET / - Retorna solicitudes filtradas según el rol del usuario autenticado. */
 exports.getAllRequests = async (req, res) => {
   try {
     const requests = await readJSON(FILE_NAME);
-    const user = req.user; 
+    const user = req.user;
 
     if (!user) {
       return res.status(401).json({ message: 'No autorizado' });
@@ -14,43 +18,33 @@ exports.getAllRequests = async (req, res) => {
 
     if (user.role === 'agent') {
       return res.json(requests);
-    } else {
-      const myRequests = requests.filter(r => r.linkedUserId === user.id);
-      return res.json(myRequests);
     }
+
+    const myRequests = requests.filter(r => r.linkedUserId === user.id);
+    return res.json(myRequests);
   } catch (error) {
     res.status(500).json({ message: 'Error al obtener las solicitudes' });
   }
 };
 
-// Crear una nueva solicitud (Solo Agentes)
+/** POST / - Crea una nueva solicitud con ID auto-incremental. */
 exports.createRequest = async (req, res) => {
   try {
-    const { 
-      dni, 
-      passengerName, 
-      origin, 
-      destination, 
-      tripType, 
-      linkedUserId, 
-      linkedUserName, 
-      departureDate, 
-      returnDate,
-      status 
+    const {
+      dni, passengerName, origin, destination, tripType,
+      linkedUserId, linkedUserName, departureDate, returnDate, status
     } = req.body;
 
     const requests = await readJSON(FILE_NAME);
 
-    // ID correlativo: Busca el máximo actual y suma 1
+    // IDs no numéricos (legacy) se ignoran para no romper el cálculo del máximo
     const maxId = requests.reduce((max, req) => {
       const currentId = parseInt(req.id);
-      // Si hay IDs viejos tipo texto, los ignora para no romper el cálculo
       return (!isNaN(currentId) && currentId > max) ? currentId : max;
-    }, 1117); 
-    
+    }, 1117);
+
     const newId = (maxId + 1).toString();
 
-    // Fecha registro
     const now = new Date();
     const registrationDate = now.toLocaleDateString('es-CL') + ' ' + now.toLocaleTimeString('es-CL');
 
@@ -79,12 +73,12 @@ exports.createRequest = async (req, res) => {
   }
 };
 
-// Eliminar solicitud
+/** DELETE /:id - Elimina una solicitud por su ID. */
 exports.deleteRequest = async (req, res) => {
   try {
     const { id } = req.params;
     const requests = await readJSON(FILE_NAME);
-    
+
     const filteredRequests = requests.filter(r => r.id !== id);
 
     if (requests.length === filteredRequests.length) {
@@ -98,6 +92,7 @@ exports.deleteRequest = async (req, res) => {
   }
 };
 
+/** PUT /:id - Actualiza una solicitud preservando ID y fecha de registro. */
 exports.updateRequest = async (req, res) => {
   try {
     const { id } = req.params;
@@ -110,12 +105,12 @@ exports.updateRequest = async (req, res) => {
       return res.status(404).json({ message: 'Solicitud no encontrada' });
     }
 
-    // Mantener campos que no deben cambiar y actualizar los permitidos
+    // Sobrescribir id y registrationDate para que no se alteren desde el body
     const updatedRequest = {
       ...requests[index],
       ...updateData,
-      id: requests[index].id, // Aseguramos que el ID no cambie
-      registrationDate: requests[index].registrationDate // La fecha original se mantiene
+      id: requests[index].id,
+      registrationDate: requests[index].registrationDate
     };
 
     requests[index] = updatedRequest;
